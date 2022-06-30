@@ -10,13 +10,14 @@ const Home = () => {
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify({data:Value}),
+                    body: JSON.stringify({ data: Value }),
                 })
                     .then(response => response.json())
                     .then(data => {
-                        console.log('Success:', data);
+                        if (data) {
+                            ev.target.value = ''
+                        }
                     })
-
 
             }
             ev.preventDefault();

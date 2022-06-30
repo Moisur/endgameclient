@@ -4,12 +4,14 @@ import Footer from '../src/components/pages/shared/Footer/Footer'
 import ToDo from './components/pages/ToDo/ToDo';
 import Tasks from "./components/pages/Tasks/Tasks";
 import Calendar from "./components/pages/Calendar/Calendar";
+import Home from "./components/pages/Home/Home";
 function App() {
   return (
     <div>
       <Navbar></Navbar>
       <Routes>
-        <Route path="/" element={<Tasks />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/tasks" element={<Tasks />} />
         <Route path="/todo" element={<ToDo />} />
         <Route path="/calendar" element={<Calendar />} />
       </Routes>

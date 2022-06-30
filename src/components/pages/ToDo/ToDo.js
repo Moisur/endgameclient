@@ -13,38 +13,53 @@ const ToDo = () => {
                 }
             })
     })
+
     /*  ======================= Update ========================= */
-    const modal = (id, name) => {
-        setId(id)
+    const modal = (UpdateId, name) => {
+        setId(UpdateId)
         setName(name)
-        console.log(id, name)
-        //   fetch(`http://localhost:5000/Update/:${id}`, {
-        //         method: 'PUT', // or 'PUT'
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //         },
-        //         body: JSON.stringify({id}),
-        // })
-        //     .then(response => response.json())
-        //     .then(data => {
-        //        console.log(data)
-        //     })
+    }
+
+    const Update = (e) => {
+        const updateTodo = e.target.text.value;
+
+
+        if (id) {
+            fetch(`http://localhost:5000/upToDo/${id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ updateTodo }),
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    console.log(data)
+                    e.target.value = ''
+                    // toast.success('Update Successfully!')
+                });
+        }
+        e.preventDefault();
 
     }
-    const Update = (id) => {
-        console.log(id)
-        //   fetch(`http://localhost:5000/Update/:${id}`, {
-        //         method: 'PUT', // or 'PUT'
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //         },
-        //         body: JSON.stringify({id}),
-        // })
-        //     .then(response => response.json())
-        //     .then(data => {
-        //        console.log(data)
-        //     })
+    /*  =================== Checkbox ====================  */
+    const Checkbox = (CheckID) => {
+
+        fetch(`http://localhost:5000/Checkbox/${CheckID}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data)
+                // toast.success('Update Successfully!')
+            });
+
     }
+
+
     return (
         <div>
             <div class="overflow-x-auto w-full ">
@@ -70,7 +85,7 @@ const ToDo = () => {
                                 </td>
                                 <th>
                                     <label>
-                                        <input type="checkbox" class="checkbox" />
+                                        <input onClick={() => Checkbox(dt._id)} type="checkbox" class="checkbox" checked={dt.Checkbox&&'checked'} />
                                     </label>
                                 </th>
                             </tr>
@@ -86,8 +101,10 @@ const ToDo = () => {
                 <div class="modal-box relative">
                     <label for="my-modal-3" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
                     <h1>{name}</h1>
-                    <input type="text" placeholder={name} />
-                    <button onClick={() => Update(id)}>Update</button>
+                    <form onSubmit={Update}>
+                        <input type="text" name='text' required></input>
+                        <button type="submit">Submit</button>
+                    </form>
                 </div>
             </div>
 

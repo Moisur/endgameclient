@@ -30,9 +30,15 @@ const Tasks = () => {
                         <tbody>
                             {
                                 TodoData.map((dt, index) => <tr key={dt._id}>
-                                    <td>{index + 1}</td>
-                                    <td className='w-[60%]'>{dt.data}</td>
-                                    <th><button className='btn'>Delete</button></th>
+                                    {
+                                        dt?.Checkbox&&<td>{index + 1}</td>
+                                    }
+                                    {
+                                        dt?.Checkbox&&<td className='w-[60%]'>{dt.data}</td>
+                                    }
+                                    {
+                                        dt?.Checkbox&&<th><button className='btn'>Delete</button></th>
+                                    }
                                 </tr>
                                 )}
                         </tbody>

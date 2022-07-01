@@ -5,6 +5,8 @@ import ToDo from './components/pages/ToDo/ToDo';
 import Tasks from "./components/pages/Tasks/Tasks";
 import Calendar from "./components/pages/Calendar/Calendar";
 import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function App() {
   return (
     <div>

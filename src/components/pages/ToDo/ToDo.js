@@ -1,31 +1,38 @@
 import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import Home from '../Home/Home'
+import Spinner from '../shared/Spinner/Spinner';
 const ToDo = () => {
     const [name, setName] = useState('')
     const [id, setId] = useState(0)
     const [TodoData, setTodoData] = useState([])
+    const [Lod, setLod] = useState(true)
+
+    /* =================== Total Todo list is a get  =========================  */
     useEffect(() => {
-        fetch('http://localhost:5000/items')
+        fetch('https://shrouded-bayou-63595.herokuapp.com/items')
             .then(res => res.json())
             .then(data => {
                 if (data) {
                     setTodoData(data)
+                    setLod(false)
                 }
             })
     })
 
-    /*  ======================= Update ========================= */
+    /*  ======================= Update Button Click In modal show ========================= */
     const modal = (UpdateId, name) => {
         setId(UpdateId)
         setName(name)
     }
 
+    /* ===================== Todo Value is Update ================== */
     const Update = (e) => {
         const updateTodo = e.target.text.value;
 
 
         if (id) {
-            fetch(`http://localhost:5000/upToDo/${id}`, {
+            fetch(`https://shrouded-bayou-63595.herokuapp.com/upToDo/${id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -34,18 +41,19 @@ const ToDo = () => {
             })
                 .then((res) => res.json())
                 .then((data) => {
-                    console.log(data)
                     e.target.value = ''
-                    // toast.success('Update Successfully!')
+                    toast.success('Update Value ')
                 });
         }
         e.preventDefault();
 
     }
-    /*  =================== Checkbox ====================  */
+
+
+    /*  =================== Click in the Checkbox ====================  */
     const Checkbox = (CheckID) => {
 
-        fetch(`http://localhost:5000/Checkbox/${CheckID}`, {
+        fetch(`https://shrouded-bayou-63595.herokuapp.com/Checkbox/${CheckID}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
@@ -54,7 +62,7 @@ const ToDo = () => {
             .then((res) => res.json())
             .then((data) => {
                 console.log(data)
-                // toast.success('Update Successfully!')
+                toast.success('Update Checkbox!')
             });
 
     }
@@ -68,8 +76,13 @@ const ToDo = () => {
             </div>
             {/* =====================  Table  ====================================== */}
             <div>
+                {
+                    Lod && <div className='my-4'>
+                        <Spinner></Spinner>
+                    </div>
+                }
                 <div class="overflow-x-auto w-full px-4 md:px-32  lg:px-40">
-                    <table class="table w-full">
+                    <table class="table w-full shadow-md mb-20  rounded-2xl">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -101,17 +114,15 @@ const ToDo = () => {
                     </table>
                 </div>
 
-                    {/* ===================== Modal ======================= */}
+                {/* ===================== Modal ======================= */}
                 <input type="checkbox" id="my-modal-3" class="modal-toggle" />
                 <div class="modal">
                     <div class="modal-box relative">
                         <label for="my-modal-3" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
                         <h1 className='text-2xl font-medium text-center py-2'>{name}</h1>
-                        <form onSubmit={Update}>
-                            <input type="text" name='text' required></input>
-                            <br />
-                            <button type="submit">Submit</button>
-                            
+                        <form onSubmit={Update} className='text-center'>
+                            <input type="text" placeholder="Update Value " class="input input-bordered input-accent w-full max-w-xs my-5" name='text' required />
+                            <h1 className='text-center'><button class="btn " type="submit">Submit</button></h1>
                         </form>
                     </div>
                 </div>

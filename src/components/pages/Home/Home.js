@@ -5,7 +5,7 @@ const Home = () => {
         if (ev.charCode === 13) {
             const Value = ev.target.value
             if (Value) {
-                fetch('http://localhost:5000/addItems', {
+                fetch('https://shrouded-bayou-63595.herokuapp.com/addItems', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

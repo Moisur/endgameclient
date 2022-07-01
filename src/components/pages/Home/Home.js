@@ -6,7 +6,7 @@ const Home = () => {
             const Value = ev.target.value
             if (Value) {
                 fetch('http://localhost:5000/addItems', {
-                    method: 'POST', // or 'PUT'
+                    method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -25,14 +25,12 @@ const Home = () => {
     }
 
     return (
-        <div className='flex justify-center items-center h-[80vh]'>
-            <div className='bg-red-500 p-4'>
-                <h1>Todo List Add </h1>
-                <input
-                    onKeyPress={(ev) => { submit(ev) }}
-                    type="text"
-                    placeholder='Enter Your Tasks' />
-            </div>
+        <div className='flex justify-center items-center mt-24 mb-16'>
+            <input
+                class="input input-bordered input-lg w-[300px] md:w-[400px] px-auto"
+                onKeyPress={(ev) => { submit(ev) }}
+                type="text"
+                placeholder='Enter Your Tasks' />
         </div>
     );
 };

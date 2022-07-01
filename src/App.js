@@ -4,18 +4,18 @@ import Footer from '../src/components/pages/shared/Footer/Footer'
 import ToDo from './components/pages/ToDo/ToDo';
 import Tasks from "./components/pages/Tasks/Tasks";
 import Calendar from "./components/pages/Calendar/Calendar";
-import Home from "./components/pages/Home/Home";
+import { ToastContainer } from 'react-toastify';
 function App() {
   return (
     <div>
       <Navbar></Navbar>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<ToDo/>} />
         <Route path="/tasks" element={<Tasks />} />
-        <Route path="/todo" element={<ToDo />} />
         <Route path="/calendar" element={<Calendar />} />
       </Routes>
       <Footer></Footer>
+      <ToastContainer />
     </div>
   );
 }
